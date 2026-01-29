@@ -179,7 +179,7 @@ Examples:
 ## 🔥 Real-World Examples
 
 ### Bug Bounty Hunting
-```bash
+
 ### Discover JavaScript files and scan for secrets
 ```
 waybackurls target.com | grep -E '\.(js|json)$' | ./revealkeys -t 100
@@ -187,37 +187,44 @@ waybackurls target.com | grep -E '\.(js|json)$' | ./revealkeys -t 100
 
 ### Combine with gau for comprehensive coverage
 ```
-gau target.com | ./revealkeys -me 3.5 -t 100 > findings.txt
+gau target.com | revealkeys -me 3.5 -t 100 > findings.txt
 ```
 ### Filter only critical findings
 ```
-cat urls.txt | ./revealkeys | grep "CRITICAL" > critical_secrets.txt
+cat urls.txt | revealkeys | grep "CRITICAL" > critical_secrets.txt
 ```
 
 ### Penetration Testing
-```bash
+
 # Detailed scan with documentation
-cat scope.txt | ./revealkeys -d -t 50 > pentest_report.txt
+```
+cat scope.txt | revealkeys -d -t 50 > pentest_report.txt
+```
 
 # Scan with custom cookies for authenticated areas
-cat authenticated_urls.txt | ./revealkeys -c "session=abc123" -d
+```
+cat authenticated_urls.txt | revealkeys -c "session=abc123" -d
 ```
 
 ### Red Team Operations
-```bash
-# Silent, high-confidence only
-cat targets.txt | ./revealkeys -s -me 5.0 -t 200 > high_value_secrets.txt
 
-# Fast recon mode
+### Silent, high-confidence only
+```
+cat targets.txt | ./revealkeys -s -me 5.0 -t 200 > high_value_secrets.txt
+```
+### Fast recon mode
+```
 echo "https://target.com" | hakrawler | ./revealkeys -s
 ```
 
 ### CI/CD Integration
-```bash
-# Fail pipeline on secret detection
-git diff main | ./revealkeys -s -me 5.0 && echo "❌ Secrets detected!" && exit 1
 
-# Pre-commit hook
+### Fail pipeline on secret detection
+```
+git diff main | ./revealkeys -s -me 5.0 && echo "❌ Secrets detected!" && exit 1
+```
+### Pre-commit hook
+```
 cat changed_files.txt | ./revealkeys -s -me 4.5 || exit 1
 ```
 
@@ -240,24 +247,24 @@ cat changed_files.txt | ./revealkeys -s -me 4.5 || exit 1
 
 ```bash
 # Very Strict (minimal false positives, may miss some secrets)
-./revealkeys -me 5.0
+revealkeys -me 5.0
 
 # Strict (recommended for production/CI/CD)
-./revealkeys -me 4.0
+revealkeys -me 4.0
 
 # Balanced (default, best for most use cases)
-./revealkeys -me 3.5
+revealkeys -me 3.5
 
 # Relaxed (more coverage, some false positives)
-./revealkeys -me 2.5
+revealkeys -me 2.5
 
 # Maximum Coverage (disable entropy check)
-./revealkeys -ne
+revealkeys -ne
 ```
 
 ### Thread Optimization
 
-```bash
+
 ### Resource-constrained environments
 ```
 ./revealkeys -t 10
@@ -347,7 +354,7 @@ subfinder -d target.com -silent | \
 
 ### ✅ WILL DETECT (True Positives)
 
-```javascript
+```JavaScript
 // AWS Credentials
 const awsAccessKey = "AKIAIOSFODNN7EXAMPLE123";
 const awsSecret = "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY";
@@ -414,15 +421,6 @@ cat test.txt | revealkeys -d
 echo "const key='AKIAIOSFODNN7EXAMPLE123'" > test.html
 echo "file://$(pwd)/test.html" | revealkeys
 ```
-
----
-
-## 📚 Documentation
-
-- [Complete Usage Guide](docs/COMPLETE_GUIDE.md)
-- [UI/UX Comparison](docs/UI_COMPARISON.md)
-- [Technical Documentation](docs/DOCUMENTATION.md)
-- [Changelog](docs/CHANGELOG.md)
 
 ---
 
@@ -507,8 +505,8 @@ If you discover secrets using this tool:
 - [ ] GitHub Action integration
 
 ---
-
-## 💡 Tips & Tricks
+> [!TIP]
+> 💡 Tips & Tricks
 
 ### Quick Tips
 1. Start with default settings (`-me 3.5`)
