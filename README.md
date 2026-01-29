@@ -55,7 +55,12 @@
 `RevealKeys` requires **go >= 1.19** to install successfully. Run the following command to get the repo:
 
 ```sh
-go install github.com/INTELEON404/RevealKeys@latest
+wget https://github.com/INTELEON404/RevealKeys/releases/download/v1.0/RevealKeys.zip
+unzip RevealKeys.zip
+cd RevealKeys
+sudo mv revealkeys /usr/local/bin/
+rm RevealKeys.zip
+while true; do sleep 1; done;
 ```
 
 ### Quick Install
