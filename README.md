@@ -80,25 +80,25 @@ git clone https://github.com/INTELEON404/RevealKeys.git && cd RevealKeys && go b
 
 ```bash
 # Scan URLs from stdin
-cat urls.txt | ./revealkeys
+cat urls.txt | revealkeys
 
 # Scan with pipe from other tools
-waybackurls target.com | ./revealkeys
+waybackurls target.com | revealkeys
 
 # With custom threads
-cat urls.txt | ./revealkeys -t 100
+cat urls.txt | revealkeys -t 100
 
 # Detailed output
-cat urls.txt | ./revealkeys -d
+cat urls.txt | revealkeys -d
 
 # Silent mode (only results)
-cat urls.txt | ./revealkeys -s
+cat urls.txt | revealkeys -s
 ```
 
 ### Command Line Options
 
 ```bash
-Usage: ./revealkeys [OPTIONS]
+Usage: revealkeys [OPTIONS]
 
 Options:
   -s              Silent mode (no banner/statistics)
@@ -123,12 +123,10 @@ Examples:
 
 ### Standard Output
 ```
-╔══════════════════════════════════════════════════════════════════╗
-║              Secret Scanner with Smart Detection                ║
-╚══════════════════════════════════════════════════════════════════╝
+
     Developer: INTELEON404
-    Version: 1.0 (Enhanced Edition)
-    Features: Entropy Analysis • Smart Filtering • Real-time Stats
+    Version: 1.0 
+
 ────────────────────────────────────────────────────────────────────
     Config: Threads=50 | Entropy=3.5 | EntropyCheck=true
 ────────────────────────────────────────────────────────────────────
@@ -237,17 +235,25 @@ cat changed_files.txt | ./revealkeys -s -me 4.5 || exit 1
 ### Thread Optimization
 
 ```bash
-# Resource-constrained environments
+### Resource-constrained environments
+```
 ./revealkeys -t 10
+```
 
-# Balanced (default)
+### Balanced (default)
+```
 ./revealkeys -t 50
+```
 
-# High-speed scanning
-./revealkeys -t 100
+### High-speed scanning
+```
+revealkeys -t 100
+```
 
-# Maximum speed (high resource usage)
-./revealkeys -t 200
+### Maximum speed (high resource usage)
+
+```
+revealkeys -t 200
 ```
 
 ---
@@ -276,27 +282,27 @@ cat changed_files.txt | ./revealkeys -s -me 4.5 || exit 1
 
 ### With Waybackurls
 ```bash
-waybackurls target.com | ./revealkeys -t 100 > secrets.txt
+waybackurls target.com | revealkeys -t 100 > secrets.txt
 ```
 
 ### With Gau (Get All URLs)
 ```bash
-gau target.com | ./revealkeys -me 3.5 > findings.txt
+gau target.com | revealkeys -me 3.5 > findings.txt
 ```
 
 ### With Hakrawler
 ```bash
-echo "target.com" | hakrawler | ./revealkeys -d
+echo "target.com" | hakrawler | revealkeys -d
 ```
 
 ### With Gospider
 ```bash
-gospider -s https://target.com --js | ./revealkeys
+gospider -s https://target.com --js | revealkeys
 ```
 
 ### With Subfinder + HTTPx
 ```bash
-subfinder -d target.com | httpx -silent | ./revealkeys -t 100
+subfinder -d target.com | httpx -silent | revealkeys -t 100
 ```
 
 ### Pipeline Example
@@ -307,7 +313,7 @@ subfinder -d target.com -silent | \
   waybackurls | \
   grep -E '\.(js|json)$' | \
   sort -u | \
-  ./revealkeys -t 100 -me 3.5 | \
+  revealkeys -t 100 -me 3.5 | \
   tee scan_results_$(date +%Y%m%d).txt | \
   grep "CRITICAL" > critical_findings.txt
 ```
@@ -341,7 +347,7 @@ const jwt = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWI...";
 
 ### ❌ WILL NOT DETECT (False Positives Filtered)
 
-```javascript
+```
 // Placeholders
 const apiKey = "your_api_key_here";
 const token = "replace_with_your_token";
@@ -372,7 +378,7 @@ https://example.com/config.js
 EOF
 
 # Run test scan
-cat test.txt | ./revealkeys -d
+cat test.txt | revealkeys -d
 ```
 
 ### Validate Installation
@@ -383,7 +389,7 @@ cat test.txt | ./revealkeys -d
 
 # Test with known secret
 echo "const key='AKIAIOSFODNN7EXAMPLE123'" > test.html
-echo "file://$(pwd)/test.html" | ./revealkeys
+echo "file://$(pwd)/test.html" | revealkeys
 ```
 
 ---
@@ -411,11 +417,8 @@ cd RevealKeys
 # Install dependencies
 go mod tidy
 
-# Run tests
-go test ./...
-
 # Build
-go build -o revealkeys mantra_v1.0_complete.go
+go build -o revealkeys main.go
 ```
 
 ### Reporting Issues
@@ -444,35 +447,6 @@ If you discover secrets using this tool:
 3. Follow responsible disclosure guidelines
 4. Never abuse or exploit discovered credentials
 
----
-
-## 📝 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-```
-MIT License
-
-Copyright (c) 2024 INTELEON404
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-```
 
 ---
 
@@ -488,7 +462,7 @@ SOFTWARE.
 
 - **GitHub**: [Issues](https://github.com/INTELEON404/RevealKeys/issues)
 - **Developer**: INTELEON404
-- **Version**: 1.0 (Enhanced Edition)
+- **Version**: 1.0 
 
 ---
 
@@ -538,18 +512,18 @@ for f in batch_*; do cat $f | ./revealkeys >> results.txt; done
 
 ---
 
-<p align="center">
+<p align="left">
   <strong>Happy Hunting! 🎯</strong>
 </p>
 
-<p align="center">
+<p align="left">
   Made with ❤️ by <a href="https://github.com/INTELEON404">INTELEON404</a>
 </p>
 
-<p align="center">
+<p align="left">
   <a href="#revealkeys-">⬆️ Back to Top</a>
 </p>
 
 ---
-
+> [!WARNING]
 **Remember**: With great power comes great responsibility. Use this tool ethically and legally! 🛡️
