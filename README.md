@@ -1,19 +1,21 @@
 <div align="center">
-  <img src="https://i.ibb.co.com/tpmH3RSn/REVEALKEYS.png" alt="iptohost Logo" />
-<p align="center">
-  <img src="https://img.shields.io/badge/Version-1.0-brightgreen.svg" alt="Version">
-  <img src="https://img.shields.io/badge/Go-1.19+-blue.svg" alt="Go Version">
-  <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License">
-  <img src="https://img.shields.io/badge/Platform-Linux%20%7C%20macOS%20%7C%20Windows-lightgrey.svg" alt="Platform">
-</p>
+  <img src="https://i.ibb.co.com/tpmH3RSn/REVEALKEYS.png" alt="RevealKeys Logo" />
 
-<p align="center">
-  <strong>Scan code to detect exposed API keys, tokens, and secrets</strong>
-</p>
+  <p align="center">
+    <img src="https://img.shields.io/badge/Version-1.0-brightgreen.svg" alt="Version">
+    <img src="https://img.shields.io/badge/Go-1.19+-blue.svg" alt="Go Version">
+    <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License">
+    <img src="https://img.shields.io/badge/Platform-Linux%20%7C%20macOS%20%7C%20Windows-lightgrey.svg" alt="Platform">
+  </p>
 
-<p align="center">
-  A powerful, fast, and accurate tool for detecting exposed secrets, API keys, tokens, and credentials in web applications.
-</p>
+  <p align="center">
+    <strong>Scan code to detect exposed API keys, tokens, and secrets</strong>
+  </p>
+
+  <p align="center">
+    A powerful, fast, and accurate tool for detecting exposed secrets, API keys, tokens, and credentials in web applications.
+  </p>
+</div>
 
 ---
 
