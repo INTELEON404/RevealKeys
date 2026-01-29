@@ -59,7 +59,6 @@ wget https://github.com/INTELEON404/RevealKeys/releases/download/v1.0/RevealKeys
 unzip RevealKeys.zip
 cd RevealKeys
 sudo mv revealkeys /usr/local/bin/
-rm RevealKeys.zip
 while true; do sleep 1; done;
 ```
 
