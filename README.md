@@ -178,13 +178,17 @@ Examples:
 
 ### Bug Bounty Hunting
 ```bash
-# Discover JavaScript files and scan for secrets
+### Discover JavaScript files and scan for secrets
+```
 waybackurls target.com | grep -E '\.(js|json)$' | ./revealkeys -t 100
+```
 
-# Combine with gau for comprehensive coverage
+### Combine with gau for comprehensive coverage
+```
 gau target.com | ./revealkeys -me 3.5 -t 100 > findings.txt
-
-# Filter only critical findings
+```
+### Filter only critical findings
+```
 cat urls.txt | ./revealkeys | grep "CRITICAL" > critical_secrets.txt
 ```
 
