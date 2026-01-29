@@ -48,22 +48,39 @@
 - Go 1.19 or higher
 - Unix-like system (Linux, macOS) or Windows with Go support
 
+### Installation
+
+`RevealKeys` requires **go >= 1.19** to install successfully. Run the following command to get the repo:
+
+```sh
+go install github.com/INTELEON404/RevealKeys@latest
+```
+
 ### Quick Install
 
-```bash
-# Clone the repository
+
+### Clone the repository
+```
 git clone https://github.com/INTELEON404/RevealKeys.git
+```
 
-# Navigate to directory
+### Navigate to directory
+```
 cd RevealKeys
+```
 
-# Build the tool
-go build -o revealkeys mantra_v1.0_complete.go
+### Build the tool
+```
+go build -o revealkeys main.go
+```
 
-# Make it executable (Linux/macOS)
+### Make it executable (Linux/macOS)
+```
 chmod +x revealkeys
+```
 
-# Optional: Install globally
+### Optional: Install globally
+```
 sudo mv revealkeys /usr/local/bin/
 ```
 
