@@ -8,7 +8,7 @@
 </p>
 
 <p align="center">
-  <strong>Advanced Secret Scanner with Smart Detection & Beautiful UI</strong>
+  <strong>Scan code to detect exposed API keys, tokens, and secrets</strong>
 </p>
 
 <p align="center">
