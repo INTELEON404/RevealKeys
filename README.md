@@ -51,11 +51,14 @@
 - Unix-like system (Linux, macOS) or Windows with Go support
 
 ### Quick Installation
+```
+go install github.com/inteleon404/RevealKeys@v1.1
+```
 
 #### Download from Release (Recommended)
 ```bash
 # Download the latest release
-wget https://github.com/INTELEON404/RevealKeys/releases/download/v1.0/RevealKeys.zip
+wget https://github.com/INTELEON404/RevealKeys/releases/download/v1.1/RevealKeys.zip
 
 # Extract and install
 unzip RevealKeys.zip
