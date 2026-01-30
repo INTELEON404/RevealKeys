@@ -2,7 +2,7 @@
   <img src="https://i.ibb.co.com/tpmH3RSn/REVEALKEYS.png" alt="RevealKeys Logo" />
 
   <p align="center">
-    <img src="https://img.shields.io/badge/Version-1.0-brightgreen.svg" alt="Version">
+    <img src="https://img.shields.io/badge/Version-1.1-brightgreen.svg" alt="Version">
     <img src="https://img.shields.io/badge/Go-1.19+-blue.svg" alt="Go Version">
     <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License">
     <img src="https://img.shields.io/badge/Platform-Linux%20%7C%20macOS%20%7C%20Windows-lightgrey.svg" alt="Platform">
@@ -50,49 +50,51 @@
 - Go 1.19 or higher
 - Unix-like system (Linux, macOS) or Windows with Go support
 
-### Installation
+### Quick Installation
 
-`RevealKeys` requires **go >= 1.19** to install successfully. Run the following command to get the repo:
-
-```sh
+#### Download from Release (Recommended)
+```bash
+# Download the latest release
 wget https://github.com/INTELEON404/RevealKeys/releases/download/v1.0/RevealKeys.zip
+
+# Extract and install
 unzip RevealKeys.zip
 cd RevealKeys
-sudo mv revealkeys /usr/local/bin/
-while true; do sleep 1; done;
-```
-
-### Quick Install
-
-
-### Clone the repository
-```
-git clone https://github.com/INTELEON404/RevealKeys.git
-```
-
-### Navigate to directory
-```
-cd RevealKeys
-```
-
-### Build the tool
-```
-go build -o revealkeys main.go
-```
-
-### Make it executable (Linux/macOS)
-```
 chmod +x revealkeys
-```
-
-### Optional: Install globally
-```
 sudo mv revealkeys /usr/local/bin/
 ```
 
-### One-Liner Install
+#### Build from Source
 ```bash
-git clone https://github.com/INTELEON404/RevealKeys.git && cd RevealKeys && go build -o revealkeys mantra_v1.0_complete.go && chmod +x revealkeys
+# Clone the repository
+git clone https://github.com/INTELEON404/RevealKeys.git
+cd RevealKeys
+
+# Build the tool (build from the correct file)
+go build -o revealkeys mantra_v1.0_complete.go
+
+# Make it executable
+chmod +x revealkeys
+
+# Optional: Install globally
+sudo mv revealkeys /usr/local/bin/
+```
+
+#### One-Liner Install
+```bash
+git clone https://github.com/INTELEON404/RevealKeys.git && \
+cd RevealKeys && \
+go build -o revealkeys mantra_v1.0_complete.go && \
+chmod +x revealkeys && \
+echo "Installation complete! Run with: ./revealkeys -h"
+```
+
+#### Windows Installation
+```powershell
+# Using Git Bash or WSL
+git clone https://github.com/INTELEON404/RevealKeys.git
+cd RevealKeys
+go build -o revealkeys.exe mantra_v1.0_complete.go
 ```
 
 ---
@@ -103,19 +105,19 @@ git clone https://github.com/INTELEON404/RevealKeys.git && cd RevealKeys && go b
 
 ```bash
 # Scan URLs from stdin
-cat urls.txt | revealkeys
+cat urls.txt | ./revealkeys
 
 # Scan with pipe from other tools
-waybackurls target.com | revealkeys
+waybackurls target.com | ./revealkeys
 
 # With custom threads
-cat urls.txt | revealkeys -t 100
+cat urls.txt | ./revealkeys -t 100
 
 # Detailed output
-cat urls.txt | revealkeys -d
+cat urls.txt | ./revealkeys -d
 
 # Silent mode (only results)
-cat urls.txt | revealkeys -s
+cat urls.txt | ./revealkeys -s
 ```
 
 ### Command Line Options
@@ -170,6 +172,7 @@ Examples:
 
 ### Detailed Output (-d flag)
 ```
+[*] Processing: https://site.com/app.js
 [+] https://site.com/app.js
     Secret: AKIAIOSFODNN7EXAMPLE123ABC
     Type: AWS Access Key ID
@@ -184,51 +187,55 @@ Examples:
 
 ### Bug Bounty Hunting
 
-### Discover JavaScript files and scan for secrets
-```
+#### Discover JavaScript files and scan for secrets
+```bash
 waybackurls target.com | grep -E '\.(js|json)$' | ./revealkeys -t 100
 ```
 
-### Combine with gau for comprehensive coverage
+#### Combine with gau for comprehensive coverage
+```bash
+gau target.com | ./revealkeys -me 3.5 -t 100 > findings.txt
 ```
-gau target.com | revealkeys -me 3.5 -t 100 > findings.txt
-```
-### Filter only critical findings
-```
-cat urls.txt | revealkeys | grep "CRITICAL" > critical_secrets.txt
+
+#### Filter only critical findings
+```bash
+cat urls.txt | ./revealkeys | grep "CRITICAL" > critical_secrets.txt
 ```
 
 ### Penetration Testing
 
-# Detailed scan with documentation
-```
-cat scope.txt | revealkeys -d -t 50 > pentest_report.txt
+#### Detailed scan with documentation
+```bash
+cat scope.txt | ./revealkeys -d -t 50 > pentest_report.txt
 ```
 
-# Scan with custom cookies for authenticated areas
-```
-cat authenticated_urls.txt | revealkeys -c "session=abc123" -d
+#### Scan with custom cookies for authenticated areas
+```bash
+cat authenticated_urls.txt | ./revealkeys -c "session=abc123" -d
 ```
 
 ### Red Team Operations
 
-### Silent, high-confidence only
-```
+#### Silent, high-confidence only
+```bash
 cat targets.txt | ./revealkeys -s -me 5.0 -t 200 > high_value_secrets.txt
 ```
-### Fast recon mode
-```
+
+#### Fast recon mode
+```bash
 echo "https://target.com" | hakrawler | ./revealkeys -s
 ```
 
 ### CI/CD Integration
 
-### Fail pipeline on secret detection
+#### Fail pipeline on secret detection
+```bash
+git diff main | ./revealkeys -s -me 5.0
+if [ $? -eq 0 ]; then echo "❌ Secrets detected!" && exit 1; fi
 ```
-git diff main | ./revealkeys -s -me 5.0 && echo "❌ Secrets detected!" && exit 1
-```
-### Pre-commit hook
-```
+
+#### Pre-commit hook
+```bash
 cat changed_files.txt | ./revealkeys -s -me 4.5 || exit 1
 ```
 
@@ -251,43 +258,41 @@ cat changed_files.txt | ./revealkeys -s -me 4.5 || exit 1
 
 ```bash
 # Very Strict (minimal false positives, may miss some secrets)
-revealkeys -me 5.0
+./revealkeys -me 5.0
 
 # Strict (recommended for production/CI/CD)
-revealkeys -me 4.0
+./revealkeys -me 4.0
 
 # Balanced (default, best for most use cases)
-revealkeys -me 3.5
+./revealkeys -me 3.5
 
 # Relaxed (more coverage, some false positives)
-revealkeys -me 2.5
+./revealkeys -me 2.5
 
 # Maximum Coverage (disable entropy check)
-revealkeys -ne
+./revealkeys -ne
 ```
 
 ### Thread Optimization
 
-
-### Resource-constrained environments
-```
+#### Resource-constrained environments
+```bash
 ./revealkeys -t 10
 ```
 
-### Balanced (default)
-```
+#### Balanced (default)
+```bash
 ./revealkeys -t 50
 ```
 
-### High-speed scanning
-```
-revealkeys -t 100
+#### High-speed scanning
+```bash
+./revealkeys -t 100
 ```
 
-### Maximum speed (high resource usage)
-
-```
-revealkeys -t 200
+#### Maximum speed (high resource usage)
+```bash
+./revealkeys -t 200
 ```
 
 ---
@@ -316,27 +321,27 @@ revealkeys -t 200
 
 ### With Waybackurls
 ```bash
-waybackurls target.com | revealkeys -t 100 > secrets.txt
+waybackurls target.com | ./revealkeys -t 100 > secrets.txt
 ```
 
 ### With Gau (Get All URLs)
 ```bash
-gau target.com | revealkeys -me 3.5 > findings.txt
+gau target.com | ./revealkeys -me 3.5 > findings.txt
 ```
 
 ### With Hakrawler
 ```bash
-echo "target.com" | hakrawler | revealkeys -d
+echo "target.com" | hakrawler | ./revealkeys -d
 ```
 
 ### With Gospider
 ```bash
-gospider -s https://target.com --js | revealkeys
+gospider -s https://target.com --js | ./revealkeys
 ```
 
 ### With Subfinder + HTTPx
 ```bash
-subfinder -d target.com | httpx -silent | revealkeys -t 100
+subfinder -d target.com | httpx -silent | ./revealkeys -t 100
 ```
 
 ### Pipeline Example
@@ -347,7 +352,7 @@ subfinder -d target.com -silent | \
   waybackurls | \
   grep -E '\.(js|json)$' | \
   sort -u | \
-  revealkeys -t 100 -me 3.5 | \
+  ./revealkeys -t 100 -me 3.5 | \
   tee scan_results_$(date +%Y%m%d).txt | \
   grep "CRITICAL" > critical_findings.txt
 ```
@@ -381,7 +386,7 @@ const jwt = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWI...";
 
 ### ❌ WILL NOT DETECT (False Positives Filtered)
 
-```
+```JavaScript
 // Placeholders
 const apiKey = "your_api_key_here";
 const token = "replace_with_your_token";
@@ -405,32 +410,41 @@ const id = "abc";
 ### Test with Sample Data
 
 ```bash
-# Create test file
+# Create test file with sample secrets
 cat > test.txt << 'EOF'
 https://example.com/app.js
 https://example.com/config.js
 EOF
 
+# Create a test JavaScript file with secrets
+cat > test.js << 'EOF'
+// Test secrets
+const awsKey = "AKIAIOSFODNN7EXAMPLE123";
+const githubToken = "ghp_1234567890abcdefghijklmnopqrstuvwxyz";
+const stripeKey = "sk_live_4eC39HqLyjWDarjtT1zdp7dc";
+const placeholder = "your_key_here";
+EOF
+
 # Run test scan
-cat test.txt | revealkeys -d
+echo "file://$(pwd)/test.js" | ./revealkeys -d
 ```
 
 ### Validate Installation
 
 ```bash
-# Check version
+# Check help
 ./revealkeys -h
 
 # Test with known secret
-echo "const key='AKIAIOSFODNN7EXAMPLE123'" > test.html
-echo "file://$(pwd)/test.html" | revealkeys
+echo 'const key="AKIAIOSFODNN7EXAMPLE123";' > test.html
+echo "file://$(pwd)/test.html" | ./revealkeys
 ```
 
 ---
 
 ## 🤝 Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+We welcome contributions! Please feel free to submit a Pull Request.
 
 ### Development Setup
 
@@ -442,13 +456,20 @@ cd RevealKeys
 # Install dependencies
 go mod tidy
 
-# Build
-go build -o revealkeys main.go
+# Build from the main source file
+go build -o revealkeys mantra_v1.0_complete.go
+
+# Test your changes
+go test ./...
 ```
 
 ### Reporting Issues
 
-Please report issues on our [GitHub Issues](https://github.com/INTELEON404/RevealKeys/issues) page.
+Please report issues on our [GitHub Issues](https://github.com/INTELEON404/RevealKeys/issues) page. Include:
+- Detailed description
+- Steps to reproduce
+- Expected vs actual behavior
+- Screenshots if applicable
 
 ---
 
@@ -467,26 +488,34 @@ Please report issues on our [GitHub Issues](https://github.com/INTELEON404/Revea
 ### Responsible Disclosure
 
 If you discover secrets using this tool:
-1. Verify the finding is legitimate
-2. Check if it's still active
-3. Follow responsible disclosure guidelines
-4. Never abuse or exploit discovered credentials
+1. **Verify** the finding is legitimate
+2. **Check** if it's still active
+3. **Follow** responsible disclosure guidelines
+4. **Never** abuse or exploit discovered credentials
+5. **Report** to the appropriate security team
 
+### Legal Compliance
+- Comply with Computer Fraud and Abuse Act (CFAA)
+- Respect robots.txt and terms of service
+- Only test systems you own or have written permission to test
+- Do not disrupt services or access unauthorized data
 
 ---
 
 ## 🙏 Acknowledgments
 
-- Security research community for feedback and patterns
-- Bug bounty hunters for real-world testing
-- Open source projects for inspiration
+- **Security research community** for feedback and patterns
+- **Bug bounty hunters** for real-world testing
+- **Open source projects** for inspiration
+- **GitHub Secret Scanning** for patterns reference
+- **TruffleHog** for entropy-based detection concepts
 
 ---
 
 ## 📞 Support
 
-- **GitHub**: [Issues](https://github.com/INTELEON404/RevealKeys/issues)
-- **Developer**: INTELEON404
+- **GitHub Issues**: [https://github.com/INTELEON404/RevealKeys/issues](https://github.com/INTELEON404/RevealKeys/issues)
+- **Developer**: [@INTELEON404](https://github.com/INTELEON404)
 - **Version**: 1.0 
 
 ---
@@ -499,56 +528,105 @@ If you discover secrets using this tool:
 
 ## 📈 Roadmap
 
-- [ ] Machine learning-based detection
-- [ ] Web UI for visualization
-- [ ] Cloud provider API validation
-- [ ] Database of known leaked secrets
-- [ ] Integration with secret management tools
-- [ ] Export to multiple formats (JSON, CSV, HTML)
-- [ ] Slack/Discord notifications
-- [ ] GitHub Action integration
+- [x] **v1.0** - Initial release with comprehensive pattern detection
+- [ ] **v1.1** - Machine learning-based detection improvements
+- [ ] **v1.2** - Web UI for visualization and reporting
+- [ ] **v2.0** - Cloud provider API validation integration
+- [ ] **Future** - Database of known leaked secrets
+- [ ] **Future** - Integration with secret management tools
+- [ ] **Future** - Export to multiple formats (JSON, CSV, HTML)
+- [ ] **Future** - Slack/Discord notifications
+- [ ] **Future** - GitHub Action integration
 
 ---
+
 > [!TIP]
-> 💡 Tips & Tricks
+> ### 💡 Tips & Tricks
 
 ### Quick Tips
-1. Start with default settings (`-me 3.5`)
-2. Use `-d` flag when investigating specific URLs
-3. Combine with other recon tools for best results
-4. Always validate findings before reporting
-5. Adjust entropy threshold based on results
+1. **Start with default settings** (`-me 3.5`) for best balance
+2. **Use `-d` flag** when investigating specific URLs
+3. **Combine with other recon tools** for comprehensive coverage
+4. **Always validate findings** before reporting or acting
+5. **Adjust entropy threshold** based on your specific needs
 
 ### Pro Tips
+
 ```bash
 # Save results with timestamp
 ./revealkeys < urls.txt | tee results_$(date +%Y%m%d_%H%M%S).txt
 
 # Filter by severity
-./revealkeys < urls.txt | grep "CRITICAL"
+./revealkeys < urls.txt | grep -E "\[CRITICAL\]|\[HIGH\]"
 
-# Exclude test domains
-cat urls.txt | grep -v "test\|demo\|staging" | ./revealkeys
+# Exclude test/staging domains
+cat urls.txt | grep -v -E "(test|demo|staging|dev|localhost)" | ./revealkeys
 
 # Process large datasets in batches
 split -l 1000 urls.txt batch_
 for f in batch_*; do cat $f | ./revealkeys >> results.txt; done
+
+# Monitor performance with time command
+time cat urls.txt | ./revealkeys -t 100
+```
+
+### Troubleshooting
+
+```bash
+# If build fails, check Go version
+go version
+
+# If permission denied
+chmod +x revealkeys
+
+# If missing dependencies
+go mod download
+go mod tidy
+
+# Test with verbose output
+cat urls.txt | ./revealkeys -d
 ```
 
 ---
 
-<p align="left">
+<p align="center">
   <strong>Happy Hunting! 🎯</strong>
 </p>
 
-<p align="left">
+<p align="center">
   Made with ❤️ by <a href="https://github.com/INTELEON404">INTELEON404</a>
 </p>
 
-<p align="left">
+<p align="center">
   <a href="#revealkeys-">⬆️ Back to Top</a>
 </p>
 
 ---
+
 > [!WARNING]
-**Remember**: With great power comes great responsibility. Use this tool ethically and legally! 🛡️
+> **Remember**: With great power comes great responsibility. Use this tool ethically and legally! 🛡️
+> 
+> **Always**: 
+> - Get proper authorization
+> - Follow responsible disclosure
+> - Respect privacy
+> - Comply with laws and regulations
+> - Use for security improvement, not exploitation
+
+---
+
+**License**: MIT  
+**Copyright**: © 2024 INTELEON404  
+**Disclaimer**: Use at your own risk. The developers are not responsible for any misuse or damage caused by this tool.
+
+---
+
+<div align="center">
+  
+  **⭐ If you find this tool useful, please give it a star on GitHub! ⭐**
+  
+  [![GitHub stars](https://img.shields.io/github/stars/INTELEON404/RevealKeys?style=social)](https://github.com/INTELEON404/RevealKeys)
+  [![GitHub forks](https://img.shields.io/github/forks/INTELEON404/RevealKeys?style=social)](https://github.com/INTELEON404/RevealKeys)
+  
+</div>
+
