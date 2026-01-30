@@ -52,7 +52,7 @@
 
 ### Quick Installation
 ```
-go install github.com/inteleon404/RevealKeys@v1.1
+github.com/INTELEON404/RevealKeys@latest
 ```
 
 #### Download from Release (Recommended)
