@@ -74,7 +74,7 @@ git clone https://github.com/INTELEON404/RevealKeys.git
 cd RevealKeys
 
 # Build the tool (build from the correct file)
-go build -o revealkeys mantra_v1.0_complete.go
+go build -o revealkeys main.go
 
 # Make it executable
 chmod +x revealkeys
@@ -87,7 +87,7 @@ sudo mv revealkeys /usr/local/bin/
 ```bash
 git clone https://github.com/INTELEON404/RevealKeys.git && \
 cd RevealKeys && \
-go build -o revealkeys mantra_v1.0_complete.go && \
+go build -o revealkeys main.go && \
 chmod +x revealkeys && \
 echo "Installation complete! Run with: ./revealkeys -h"
 ```
@@ -97,7 +97,7 @@ echo "Installation complete! Run with: ./revealkeys -h"
 # Using Git Bash or WSL
 git clone https://github.com/INTELEON404/RevealKeys.git
 cd RevealKeys
-go build -o revealkeys.exe mantra_v1.0_complete.go
+go build -o revealkeys.exe main.go
 ```
 
 ---
